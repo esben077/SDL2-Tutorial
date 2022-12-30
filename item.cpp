@@ -19,7 +19,23 @@ item::~item()
         SDL:SDL_FreeSurface(image);
     }
 }
-
+bool item::loadImage(std::string filename)
+{
+    // new surface is being created
+    if(image != NULL)
+    {
+        SDL:SDL_FreeSurface(image);
+    }
+    image = IMG_Load(filename.c_str());
+    if(image != NULL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
 void item::draw(SDL_Surface *dest)
 {
     if(image != NULL)
