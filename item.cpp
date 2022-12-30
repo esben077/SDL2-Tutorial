@@ -70,6 +70,17 @@ void item::setPos(int x, int y)
     pos.y = y;
 }
 
+SDL_Rect *item::getPos()
+{
+    return &pos;
+}
+
+void item::move(int x, int y)
+{
+    pos.x +=x;
+    pos.y +=y;
+}
+
 void item::draw(double angle)
 {
     if(image != NULL)
