@@ -1,5 +1,6 @@
 #include <iostream>
-#include <SDL2/SDL.h>
+//#include <SDL2/SDL.h>
+#include "item.hpp"
 //mingw32-make
 const int WIDTH = 1200, HEIGHT = 1200;
 
@@ -17,9 +18,11 @@ int main ( int arcg, char *argv[])
         return 1;
     }
 
-    //SDL_Surface *screen = SDL_GetWindowSurface(window);
+    SDL_Surface *screen = SDL_GetWindowSurface(window);
 
     SDL_Event windowEvent;
+
+    item bob;
 
     bool run = true;
     while ( run )
@@ -32,6 +35,12 @@ int main ( int arcg, char *argv[])
                 std::cout << "exit and closing window" << std::endl;
             }
         }
+
+        SDL_FillRect(screen, NULL, 0x00aaff);
+        bob.draw(screen);
+
+        
+        SDL_UpdateWindowSurface(window);
     }
 
     SDL_DestroyWindow ( window );
