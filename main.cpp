@@ -107,7 +107,15 @@ int main ( int arcg, char *argv[])
         //draw the stones
         for(int i = 0; i < maxStones; i++)
         {
+            if( SDL_HasIntersection(bob.getPos(), stones[i]->getPos()) )
+            {
+                stones.erase(stones.begin()+i); // remove item from vector
+                maxStones--;
+            }
+            else
+            {
             stones[i]->draw(angle);
+            }
         }
         SDL_RenderPresent(screen);
 

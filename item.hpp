@@ -19,6 +19,7 @@ public:
     bool loadImage(std::string filename);
     void setSize(int w, int h);
     void setPos(int x, int y);
+    SDL_Rect *getPos();
     void move(int x, int y);
     void draw(double angle);
     void draw();
