@@ -24,8 +24,12 @@ int main ( int arcg, char *argv[])
     SDL_Event windowEvent;
 
     item bob;
-    bob.set_renderer(screen);
+    bob.setRenderer(screen);
     bob.loadImage("graphics/player_front.png");
+
+    double angle = 0;
+    int coord_x = 60;
+    int size_w = 100;
 
     bool run = true;
     while ( run )
@@ -39,10 +43,17 @@ int main ( int arcg, char *argv[])
             }
         }
 
-        bob.draw();
+        bob.draw(angle);
+        bob.setPos(coord_x, coord_x);
+        bob.setSize(size_w, size_w*2);
 
-        
         SDL_RenderPresent(screen);
+        angle = angle+1;
+        coord_x = coord_x+1;
+        size_w = size_w+1;
+
+        SDL_Delay(100);
+        SDL_RenderClear(screen);
     }
 
     SDL_DestroyWindow ( window );
