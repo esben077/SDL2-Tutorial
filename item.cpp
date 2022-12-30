@@ -16,11 +16,11 @@ item::item()
 {
     // default values for the image
     // TODO: change the default values for pos
-    pos.x = 30;
+    pos.x = 60;
     pos.y = 60;
     image = NULL;
-    pos.w = 8;
-    pos.h = 16;
+    pos.w = 100;
+    pos.h = 200;
 }
 
 item::~item()
@@ -52,16 +52,47 @@ bool item::loadImage(std::string filename)
     }
         return false;
 }
-void item::set_renderer(SDL_Renderer *dest)
+
+void item::setRenderer(SDL_Renderer *dest)
 {
     ren = dest;
+}
+
+void item::setSize(int w, int h)
+{
+    pos.w = w;
+    pos.h = h;
+}
+
+void item::setPos(int x, int y)
+{
+    pos.x = x;
+    pos.y = y;
+}
+
+void item::draw(double angle)
+{
+    if(image != NULL)
+    {   
+        // SDL_Point pt; // point to orbit around
+        // pt.x = pos.w/2;
+        // pt.y = pos.h/2;
+        // pt.x += pos.x;
+        // pt.y += pos.y;
+        SDL_Point *pt = NULL;
+        SDL_RenderCopyEx(ren, image, NULL, &pos, angle, pt, SDL_FLIP_NONE); // NULL indicates that we are drawing the whole image
+    }
+    else
+    {
+        std::cout << "image is NULL at draw" << std::endl;
+    }
 }
 
 void item::draw()
 {
     if(image != NULL)
     {
-        SDL_RenderCopy(ren, image, NULL, &pos);
+        SDL_RenderCopy(ren, image, NULL, &pos); // NULL indicates that we are drawing the whole image
     }
     else
     {
