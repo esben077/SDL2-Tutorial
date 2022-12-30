@@ -23,6 +23,7 @@ int main ( int arcg, char *argv[])
     SDL_Event windowEvent;
 
     item bob;
+    bob.loadImage("graphics/player_front.png");
 
     bool run = true;
     while ( run )

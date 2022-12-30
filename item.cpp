@@ -1,5 +1,17 @@
 #include "item.hpp"
 
+void itemInit()
+{
+    SDL_Init(SDL_INIT_EVERYTHING);
+    IMG_Init(IMG_INIT_PNG);
+    // IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG | ...); // for multiple typyes
+}
+void itemQuit()
+{
+    SDL_Quit();
+    IMG_Quit();
+}
+
 item::item()
 {
     pos.x = 30;
@@ -21,7 +33,7 @@ item::~item()
 }
 bool item::loadImage(std::string filename)
 {
-    // new surface is being created
+    // remove old surface if present. (Surface was made in constructor)
     if(image != NULL)
     {
         SDL:SDL_FreeSurface(image);
