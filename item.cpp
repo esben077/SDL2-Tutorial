@@ -14,21 +14,21 @@ void itemQuit()
 
 item::item()
 {
+    // default values for the image
+    // TODO: change the default values for pos
     pos.x = 30;
     pos.y = 60;
-    //empty surface with height=100 and width=200
-    image = SDL_CreateRGBSurface(0, 100, 200, 32, 0,0,0,0);
-    //extracting width and height from image
-    pos.w = image->clip_rect.w;
-    pos.h = image->clip_rect.h;
-    SDL_FillRect(image, NULL, 0xffff00);
+    image = NULL;
+    pos.w = 8;
+    pos.h = 16;
 }
 
 item::~item()
 {
     if(image != NULL)
     {
-        SDL:SDL_FreeSurface(image);
+        SDL:SDL_DestroyTexture(image);
+        image = NULL;
     }
 }
 bool item::loadImage(std::string filename)
@@ -36,22 +36,35 @@ bool item::loadImage(std::string filename)
     // remove old surface if present. (Surface was made in constructor)
     if(image != NULL)
     {
-        SDL:SDL_FreeSurface(image);
+        SDL:SDL_DestroyTexture(image);
+        image = NULL;
     }
-    image = IMG_Load(filename.c_str());
-    if(image != NULL)
+    // load the image to a temporary surface
+    SDL_Surface *temp = IMG_Load(filename.c_str());
+    if(temp != NULL)
     {
-        return true;
+        image = SDL_CreateTextureFromSurface(ren, temp);
+        SDL_FreeSurface(temp);
+        if(image != NULL)
+        {
+            return true;
+        }
     }
-    else
-    {
         return false;
-    }
 }
-void item::draw(SDL_Surface *dest)
+void item::set_renderer(SDL_Renderer *dest)
+{
+    ren = dest;
+}
+
+void item::draw()
 {
     if(image != NULL)
     {
-        SDL_BlitSurface(image, NULL, dest, &pos);
+        SDL_RenderCopy(ren, image, NULL, &pos);
+    }
+    else
+    {
+        std::cout << "image is NULL at draw" << std::endl;
     }
 }
