@@ -2,6 +2,7 @@
 #define ITEM_HPP
 
 #include <string>
+#include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -14,11 +15,13 @@ class item
 public:
     item();
     virtual ~item();
+    void set_renderer(SDL_Renderer *renderer);
     bool loadImage(std::string filename);
-    void draw(SDL_Surface *dest );
+    void draw();
 
 private:
-    SDL_Surface *image;
+    SDL_Renderer *ren;
+    SDL_Texture *image;
     SDL_Rect pos;
 
 };
