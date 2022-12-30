@@ -35,7 +35,7 @@ int main ( int arcg, char *argv[])
     }
 
     SDL_DestroyWindow ( window );
-    SDL_Quit( );
+    SDL_Quit();
 
     return EXIT_SUCCESS;
 }
