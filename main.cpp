@@ -26,33 +26,67 @@ int main ( int arcg, char *argv[])
     item bob;
     bob.setRenderer(screen);
     bob.loadImage("graphics/player_front.png");
+    bob.setPos(30, 30);
+    bob.setSize(100, 200);
 
-    double angle = 0;
-    int coord_x = 60;
-    int size_w = 100;
+    int speedX = 0;
+    int speedY = 0;
 
     bool run = true;
     while ( run )
     {
         if ( SDL_PollEvent( &windowEvent ) )
         {
-            if( SDL_QUIT == windowEvent.type )
+            switch(windowEvent.type)
             {
-                run = false;;
+            case SDL_QUIT:
+                run = false;
                 std::cout << "exit and closing window" << std::endl;
+                break;
+            case SDL_KEYDOWN:
+                    // check which key is pressed down
+                    switch (windowEvent.key.keysym.sym)
+                    {
+                    case SDLK_UP:
+                        speedY = -5;
+                        break;
+                    case SDLK_DOWN:
+                        speedY = 5;
+                        break;
+                    case SDLK_LEFT:
+                        speedX = -5;
+                        break;
+                    case SDLK_RIGHT:
+                        speedX = 5;
+                        break;
+                    }
+                break;
+            case SDL_KEYUP:
+                    switch (windowEvent.key.keysym.sym)
+                    {
+                    case SDLK_UP:
+                        speedY = 0;
+                        break;
+                    case SDLK_DOWN:
+                        speedY = 0;
+                        break;
+                    case SDLK_LEFT:
+                        speedX = 0;
+                        break;
+                    case SDLK_RIGHT:
+                        speedX = 0;
+                        break;
+                    }
+                break;
             }
+
         }
+        bob.move(speedX, speedY);
 
-        bob.draw(angle);
-        bob.setPos(coord_x, coord_x);
-        bob.setSize(size_w, size_w*2);
-
+        bob.draw();
         SDL_RenderPresent(screen);
-        angle = angle+1;
-        coord_x = coord_x+1;
-        size_w = size_w+1;
 
-        SDL_Delay(100);
+        SDL_Delay(30);
         SDL_RenderClear(screen);
     }
 
