@@ -33,8 +33,9 @@ int main ( int arcg, char *argv[])
     bob.setPos(30, 30);
     bob.setSize(100, 200);
 
+    // make vector with stone items
     std::vector <item *> stones;
-    int maxStones = 200;
+    int maxStones = 10;
     for(int i = 0; i < maxStones; i++)
     {
         stones.push_back(new item());
@@ -120,7 +121,7 @@ int main ( int arcg, char *argv[])
         SDL_RenderPresent(screen);
 
         SDL_Delay(30);
-        angle++;
+        //angle++;
 
     }
 
