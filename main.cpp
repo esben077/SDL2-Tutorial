@@ -34,16 +34,18 @@ int main ( int arcg, char *argv[])
     bob.setSize(100, 200);
 
     // make vector with stone items
-    std::vector <item *> stones;
-    int maxStones = 10;
-    for(int i = 0; i < maxStones; i++)
+    std::vector <item *> diamonds;
+    int maxDiamonds = 10;
+    for(int i = 0; i < maxDiamonds; i++)
     {
-        stones.push_back(new item());
-        stones[i]->setRenderer(screen);
-        stones[i]->loadImage("graphics/stone.png");
-        stones[i]->setPos(rand() % 550, rand() % 450);
-        stones[i]->setSize(50, 50);
+        diamonds.push_back(new item());
+        diamonds[i]->setRenderer(screen);
+        diamonds[i]->loadImage("graphics/diamond.png");
+        diamonds[i]->setPos(rand() % 550, rand() % 450);
+        diamonds[i]->setSize(50, 50);
     }
+
+
 
     double angle = 0;
     int speedX = 0;
@@ -105,23 +107,23 @@ int main ( int arcg, char *argv[])
         SDL_RenderClear(screen);
 
         bob.draw(); // draw the player
-        //draw the stones
-        for(int i = 0; i < maxStones; i++)
+        //draw the diamonds
+        for(int i = 0; i < maxDiamonds; i++)
         {
-            if( SDL_HasIntersection(bob.getPos(), stones[i]->getPos()) )
+            if( SDL_HasIntersection(bob.getPos(), diamonds[i]->getPos()) )
             {
-                stones.erase(stones.begin()+i); // remove item from vector
-                maxStones--;
+                diamonds.erase(diamonds.begin()+i); // remove item from vector
+                maxDiamonds--;
             }
             else
             {
-            stones[i]->draw(angle);
+            diamonds[i]->draw(angle);
             }
         }
         SDL_RenderPresent(screen);
 
         SDL_Delay(30);
-        //angle++;
+        angle++;
 
     }
 
